@@ -1,0 +1,8 @@
+echo "__pycache__/
+*.csv
+*.zip
+*.parquet
+config_ny.py
+nytimes_trump_covid/
+.DS_Store
+" > .gitignore
