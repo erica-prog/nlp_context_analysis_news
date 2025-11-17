@@ -1,1 +1,0 @@
-GUARDIAN_API_KEY = '32b19c1d-0c31-4dc7-b85f-bd055f5d88cd'

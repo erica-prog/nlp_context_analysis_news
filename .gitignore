@@ -4,3 +4,8 @@ echo "__pycache__/
 config_ny.py
 .DS_Store
 " > .gitignore
+config_ny.py
+.env
+config_ny.py
+config_guardian.py
+.env

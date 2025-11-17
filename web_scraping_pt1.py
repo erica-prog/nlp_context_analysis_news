@@ -281,9 +281,10 @@ def scrape_by_month(start_date, end_date):
         print(f"  {row['year_month']}: {row['count']:4d} {bar}")
 
 
-# Main execution - Full 2020-2025 coverage - it has exhausted API limits so start from 2023-08-01
-start = datetime.date(2023, 8, 1)
-end = datetime.date.today()
+# Main execution - Full 2020-2023 coverage
+start = datetime.date(2020, 1, 1)
+# end = datetime.date.today()
+end = datetime.date(2023, 12, 31)
 
 print(f"🔍 Scraping NYTimes: Trump & COVID-19")
 print(f"📅 Period: {start} → {end}")
