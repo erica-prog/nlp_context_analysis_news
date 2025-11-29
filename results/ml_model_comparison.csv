@@ -1,0 +1,3 @@
+frame,best_model,test_f1,test_accuracy,lexicon_agreement,cohens_kappa
+Responsibility,Logistic Regression,1.0,1.0,1.0,1.0
+Science,Logistic Regression,1.0,1.0,1.0,1.0

@@ -1,0 +1,23 @@
+{
+  "timestamp": "2025-11-29T18:17:16.663790",
+  "n_articles": 1884,
+  "n_features": 518,
+  "frames": {
+    "resp": {
+      "best_model": "Logistic Regression",
+      "test_f1": 1.0,
+      "test_accuracy": 1.0,
+      "lexicon_agreement": 1.0,
+      "kappa": 1.0,
+      "n_disagreements": 0
+    },
+    "sci": {
+      "best_model": "Logistic Regression",
+      "test_f1": 1.0,
+      "test_accuracy": 1.0,
+      "lexicon_agreement": 1.0,
+      "kappa": 1.0,
+      "n_disagreements": 0
+    }
+  }
+}
