@@ -523,4 +523,4 @@ The ML classification supplement provides a robustness check for the lexicon-bas
 
 4. **Simple models work best**: Logistic Regression achieved perfect performance, suggesting the classification task is well-defined by our features.
 
-*Note: This analysis used lexicon-based pseudo-labels for training. For publication, manual coding of a validation sample (template provided) is recommended.*
+
