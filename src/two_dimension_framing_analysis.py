@@ -622,21 +622,7 @@ class FramingAnalysisPipeline:
         guardian = guardian[(guardian['pub_date'] >= start_date) & 
                            (guardian['pub_date'] < end_date)]
         
-        # Filter for COVID + Trump mentions
-        print("Filtering for COVID + Trump articles...")
-        
-        def contains_covid_trump(text):
-            text_lower = str(text).lower()
-            covid_terms = ['covid', 'coronavirus', 'pandemic', 'virus outbreak']
-            trump_terms = ['trump', 'president trump', 'administration']
-            
-            has_covid = any(term in text_lower for term in covid_terms)
-            has_trump = any(term in text_lower for term in trump_terms)
-            
-            return has_covid and has_trump
-        
-        nyt = nyt[nyt['text'].apply(contains_covid_trump)]
-        guardian = guardian[guardian['text'].apply(contains_covid_trump)]
+        # Note: Content filtering for COVID + Trump already done during scraping
         
         # Combine datasets
         self.df = pd.concat([nyt, guardian], ignore_index=True)
