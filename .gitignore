@@ -1,11 +1,19 @@
-echo "__pycache__/
-*.zip
-*.parquet
-config_ny.py
-.DS_Store
-" > .gitignore
-config_ny.py
+# API keys and config (DO NOT COMMIT)
+config_news.py
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Output data files
+*.csv
+
+# Environment
 .env
-config_ny.py
-config_guardian.py
-.env
+venv/
+.venv/
+
+# IDE
+.idea/
+.vscode/
