@@ -352,10 +352,18 @@ Analyzed **8,807 articles** from Trump COVID-19 coverage (NYT vs. Guardian)
 
 | File | Description |
 |------|-------------|
-| `word_clouds.png` | Word clouds for each frame category |
+| `word_clouds.png` | Word clouds for each frame category (combined) |
+| `word_clouds_by_outlet.png` | Side-by-side word clouds comparing NYT vs Guardian framing |
 | `top_terms_frequency.png` | Bar charts of top terms |
 | `cross_frame_network.png` | Bipartite network showing responsibility ↔ science connections |
 | `full_frame_network.png` | Complete network of all term co-occurrences |
+
+#### Outlet Comparison Word Clouds
+
+The `word_clouds_by_outlet.png` visualization provides a direct comparison of frame term usage between NYT and Guardian. Each row represents an outlet, with columns showing the four frame categories (Responsibility+/-, Science+/-). This allows visual identification of:
+- Which blame/credit terms each outlet emphasizes
+- Differences in science-related terminology between US and UK coverage
+- Relative term diversity (more varied word sizes indicate more distributed term usage)
 
 ---
 
