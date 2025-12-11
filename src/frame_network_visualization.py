@@ -148,6 +148,39 @@ class FrameTermAnalyzer:
             category: counter.most_common(n)
             for category, counter in term_freq.items()
         }
+    
+    def analyze_corpus_by_outlet(self, df: pd.DataFrame) -> Dict[str, Dict]:
+        """
+        Analyze term frequencies separately for each outlet (NYT vs Guardian).
+        
+        Returns:
+            Dictionary with outlet names as keys, each containing term_freq dict
+        """
+        results = {}
+        
+        for outlet in df['outlet'].unique():
+            outlet_df = df[df['outlet'] == outlet]
+            print(f"\nAnalyzing {outlet} ({len(outlet_df)} articles)...")
+            
+            term_freq = {
+                'resp_pos': Counter(),
+                'resp_neg': Counter(),
+                'sci_pos': Counter(),
+                'sci_neg': Counter()
+            }
+            
+            for idx, row in outlet_df.iterrows():
+                text = row['text']
+                terms = self.extract_terms_from_text(text)
+                
+                for category, term_list in terms.items():
+                    for term in term_list:
+                        term_freq[category][term] += 1
+            
+            results[outlet] = {'term_freq': term_freq}
+            print(f"  ✓ {outlet} analysis complete!")
+        
+        return results
 
 
 # ============================================================================
@@ -321,6 +354,89 @@ class FrameVisualization:
         
         if save:
             path = self.output_dir / 'word_clouds.png'
+            plt.savefig(path, dpi=300, bbox_inches='tight', facecolor='white')
+            print(f"✓ Saved: {path}")
+        
+        plt.show()
+    
+    def plot_word_clouds_by_outlet(self, outlet_results: Dict[str, Dict], save: bool = True):
+        """
+        Create word clouds for each outlet separately.
+        
+        Args:
+            outlet_results: Dictionary with outlet names as keys, containing term_freq
+        """
+        import matplotlib.pyplot as plt
+        from wordcloud import WordCloud
+        
+        # Define colors for each category
+        category_colors = {
+            'resp_pos': '#27ae60',  # Green - Credit
+            'resp_neg': '#c0392b',  # Red - Blame
+            'sci_pos': '#2980b9',   # Blue - Pro-Science
+            'sci_neg': '#8e44ad'    # Purple - Anti-Science
+        }
+        
+        category_titles = {
+            'resp_pos': 'Responsibility+\n(Credit)',
+            'resp_neg': 'Responsibility-\n(Blame)',
+            'sci_pos': 'Science+\n(Pro-Science)',
+            'sci_neg': 'Science-\n(Anti-Science)'
+        }
+        
+        outlets = list(outlet_results.keys())
+        n_outlets = len(outlets)
+        
+        # Create figure: rows = outlets, cols = 4 categories
+        fig, axes = plt.subplots(n_outlets, 4, figsize=(20, 6 * n_outlets))
+        
+        # Handle single outlet case
+        if n_outlets == 1:
+            axes = axes.reshape(1, -1)
+        
+        for row_idx, outlet in enumerate(outlets):
+            term_freq = outlet_results[outlet]['term_freq']
+            
+            for col_idx, (category, color) in enumerate(category_colors.items()):
+                ax = axes[row_idx, col_idx]
+                freq_dict = dict(term_freq[category])
+                
+                if freq_dict:
+                    # Create color function with closure to capture current color
+                    def make_color_func(c):
+                        return lambda *args, **kwargs: c
+                    
+                    wc = WordCloud(
+                        width=600, height=400,
+                        background_color='white',
+                        color_func=make_color_func(color),
+                        max_words=40,
+                        min_font_size=8,
+                        prefer_horizontal=0.7
+                    ).generate_from_frequencies(freq_dict)
+                    
+                    ax.imshow(wc, interpolation='bilinear')
+                else:
+                    ax.text(0.5, 0.5, 'No terms found', ha='center', va='center', 
+                           fontsize=12, color='gray')
+                
+                ax.axis('off')
+                
+                # Add column titles on first row
+                if row_idx == 0:
+                    ax.set_title(category_titles[category], fontsize=12, fontweight='bold', pad=10)
+            
+            # Add outlet label on left side
+            axes[row_idx, 0].text(-0.15, 0.5, outlet.upper(), transform=axes[row_idx, 0].transAxes,
+                                  fontsize=16, fontweight='bold', va='center', ha='right',
+                                  rotation=90)
+        
+        plt.suptitle('Frame Term Word Clouds by Outlet\nTrump COVID-19 Coverage: NYT vs. Guardian', 
+                    fontsize=18, fontweight='bold', y=0.98)
+        plt.tight_layout()
+        
+        if save:
+            path = self.output_dir / 'word_clouds_by_outlet.png'
             plt.savefig(path, dpi=300, bbox_inches='tight', facecolor='white')
             print(f"✓ Saved: {path}")
         
@@ -730,23 +846,33 @@ def run_network_analysis(data_path: str = None):
     project_root = Path(__file__).parent.parent
     viz = FrameVisualization(output_dir=str(project_root / 'results'))
     
-    # Word clouds
-    print("\n1. Creating word clouds...")
+    # Word clouds (combined)
+    print("\n1. Creating combined word clouds...")
     try:
         viz.plot_word_clouds(results['term_freq'])
     except ImportError:
         print("   Note: Install 'wordcloud' package for word clouds: pip install wordcloud")
     
+    # Word clouds by outlet (NYT vs Guardian)
+    print("\n2. Creating word clouds by outlet (NYT vs Guardian)...")
+    try:
+        outlet_results = analyzer.analyze_corpus_by_outlet(df)
+        viz.plot_word_clouds_by_outlet(outlet_results)
+    except ImportError:
+        print("   Note: Install 'wordcloud' package for word clouds: pip install wordcloud")
+    except Exception as e:
+        print(f"   Warning: Could not create outlet word clouds: {e}")
+    
     # Top terms bar chart
-    print("\n2. Creating top terms frequency chart...")
+    print("\n3. Creating top terms frequency chart...")
     viz.plot_top_terms_bar(results['term_freq'])
     
     # Cross-frame network
-    print("\n3. Creating cross-frame network...")
+    print("\n4. Creating cross-frame network...")
     viz.plot_cross_frame_network(results['cooccur_cross_frame'], min_weight=2)
     
     # Full network
-    print("\n4. Creating full frame network...")
+    print("\n5. Creating full frame network...")
     G = viz.plot_full_network(results, min_weight=2)
     
     # Network statistics
