@@ -1,5 +1,6 @@
 # API keys and config (DO NOT COMMIT)
 config_news.py
+config_ny.py
 
 # Python cache
 __pycache__/
