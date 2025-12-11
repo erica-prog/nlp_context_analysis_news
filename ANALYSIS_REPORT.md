@@ -348,6 +348,15 @@ Analyzed **8,807 articles** from Trump COVID-19 coverage (NYT vs. Guardian)
 - **Network density:** 0.0871
 - **Most central terms:** toll, death toll, failure, misinformation, leadership
 
+
+
+#### Outlet Comparison Word Clouds
+
+The `word_clouds_by_outlet.png` visualization provides a direct comparison of frame term usage between NYT and Guardian. Each row represents an outlet, with columns showing the four frame categories (Responsibility+/-, Science+/-). This allows visual identification of:
+- Which blame/credit terms each outlet emphasizes
+- Differences in science-related terminology between US and UK coverage
+- Relative term diversity (more varied word sizes indicate more distributed term usage)
+
 #### Generated Visualizations (saved to `results/`):
 
 | File | Description |
@@ -357,14 +366,6 @@ Analyzed **8,807 articles** from Trump COVID-19 coverage (NYT vs. Guardian)
 | `top_terms_frequency.png` | Bar charts of top terms |
 | `cross_frame_network.png` | Bipartite network showing responsibility ↔ science connections |
 | `full_frame_network.png` | Complete network of all term co-occurrences |
-
-#### Outlet Comparison Word Clouds
-
-The `word_clouds_by_outlet.png` visualization provides a direct comparison of frame term usage between NYT and Guardian. Each row represents an outlet, with columns showing the four frame categories (Responsibility+/-, Science+/-). This allows visual identification of:
-- Which blame/credit terms each outlet emphasizes
-- Differences in science-related terminology between US and UK coverage
-- Relative term diversity (more varied word sizes indicate more distributed term usage)
-
 ---
 
 ## VIII. Appendix: Statistical Output
