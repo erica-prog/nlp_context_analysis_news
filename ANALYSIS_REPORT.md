@@ -326,7 +326,40 @@ Future research should:
 
 ---
 
-## VII. Appendix: Statistical Output
+## VII. Network Visualization Analysis
+
+### Analysis Results
+
+Analyzed **8,807 articles** from Trump COVID-19 coverage (NYT vs. Guardian)
+
+#### Top Frame Terms Found:
+
+| Category | Top Terms |
+|----------|-----------|
+| **Responsibility+ (Credit)** | delivered (94), leadership (66), successful (19) |
+| **Responsibility- (Blame)** | toll (260), death toll (219), chaos (79), failed (72) |
+| **Science+ (Pro-Science)** | anthony fauci (30), dr fauci (10), deborah birx (10) |
+| **Science- (Anti-Science)** | hydroxychloroquine (66), misinformation (60), baseless (33) |
+
+#### Network Statistics:
+
+- **33 nodes** (unique frame terms)
+- **46 edges** (co-occurrence connections)
+- **Network density:** 0.0871
+- **Most central terms:** toll, death toll, failure, misinformation, leadership
+
+#### Generated Visualizations (saved to `results/`):
+
+| File | Description |
+|------|-------------|
+| `word_clouds.png` | Word clouds for each frame category |
+| `top_terms_frequency.png` | Bar charts of top terms |
+| `cross_frame_network.png` | Bipartite network showing responsibility ↔ science connections |
+| `full_frame_network.png` | Complete network of all term co-occurrences |
+
+---
+
+## VIII. Appendix: Statistical Output
 
 ### Full Statistical Test Results
 
@@ -366,7 +399,7 @@ Note: * p<0.05, ** p<0.01, *** p<0.001
 
 ---
 
-## VIII. Output Files
+## IX. Output Files
 
 | File | Description |
 |------|-------------|
@@ -379,7 +412,7 @@ Note: * p<0.05, ** p<0.01, *** p<0.001
 
 ---
 
-## IX. References
+## X. References
 
 Bennett, W. L. (1990). Toward a theory of press-state relations in the United States. *Journal of Communication*, 40(2), 103-127.
 
