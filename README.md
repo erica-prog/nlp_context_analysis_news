@@ -10,6 +10,8 @@ This study examines how two elite, left-leaning English-language newspapers—**
 1. **Responsibility Frame** (RQ1): Who gets blamed or credited for COVID-19 outcomes?
 2. **Science Frame** (RQ2): How is Trump's relationship with scientific expertise portrayed?
 
+The executive report is available by clicking [here](https://github.com/erica-prog/nlp_context_analysis_news/blob/main/NLP_News_Framing_Analysis_Report.pdf).
+
 ### Key Findings
 
 | Finding | Summary |
@@ -434,3 +436,4 @@ Patterson, T. E. (2016). Pre-primary news coverage of the 2016 presidential race
 *Report updated: December 2025*  
 *Analysis script: `src/two_dimension_framing_analysis.py`*  
 *Total articles analyzed: 8,807 (NYT: 180, Guardian: 8,627)*
+
